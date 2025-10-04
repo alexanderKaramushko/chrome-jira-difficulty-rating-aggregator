@@ -4,12 +4,13 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
-    "lib": ["esnext", "dom"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["chrome"],
     "resolveJsonModule": true,
     "allowJs": true,
     "isolatedModules": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "jsx": "react-jsx"
   },
-  "include": ["src/content.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
 }
