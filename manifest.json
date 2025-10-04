@@ -10,5 +10,9 @@
     "48": "/images/logo48.png",
     "128": "/images/logo128.png"
   },
-  "options_page": "options.html"
+  "background": {
+    "service_worker": "dist/service-worker.js"
+  },
+  "permissions": ["scripting"],
+  "host_permissions": ["<all_urls>"]
 }

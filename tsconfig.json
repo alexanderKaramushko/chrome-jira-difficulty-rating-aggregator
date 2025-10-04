@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["esnext", "dom"],
+    "types": ["chrome"],
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "isolatedModules": true,
+    "outDir": "dist"
+  },
+  "include": ["src/content.ts"],
+}
