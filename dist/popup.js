@@ -17609,7 +17609,7 @@ function ReactMinimalPieChart(originalProps) {
 
 const RED = '#ff0000';
 const ORANGE = '#ff9900';
-const GREEN = '#008000';
+const GREEN = '#339966';
 const colors = {
     hard: RED,
     medium: ORANGE,
@@ -17632,14 +17632,16 @@ function App() {
             }
         });
     }, []);
-    return (jsxRuntimeExports.jsxs("div", { style: { width: '200px' }, className: "m-2", children: [jsxRuntimeExports.jsx("p", { children: jsxRuntimeExports.jsx("strong", { children: "\u041A\u043E\u043B-\u0432\u043E \u0447\u0435\u043A\u043F\u043E\u0438\u043D\u0442\u043E\u0432 \u043F\u043E \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u0438:" }) }), jsxRuntimeExports.jsx("ul", { className: "list-group", children: Object.entries(levels).map(([level, count]) => (jsxRuntimeExports.jsxs("li", { className: "list-group-item", style: { color: colors[level] }, children: [labels[level], ": ", count] }))) }), jsxRuntimeExports.jsx("p", { className: 'mt-2', children: jsxRuntimeExports.jsx("strong", { children: "\u041F\u0440\u0435\u043E\u0431\u043B\u0430\u0434\u0430\u044E\u0449\u0430\u044F \u043E\u0446\u0435\u043D\u043A\u0430 \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u0438:" }) }), jsxRuntimeExports.jsx(ReactMinimalPieChart, { data: Object.entries(levels).map(([level, count]) => ({
-                    title: labels[level],
-                    value: count,
-                    color: colors[level]
-                })), lineWidth: 60, label: ({ dataEntry }) => dataEntry.title, labelStyle: {
-                    fontSize: '5px',
-                    fontFamily: 'sans-serif',
-                }, radius: 42, labelPosition: 110 })] }));
+    return (jsxRuntimeExports.jsx("div", { style: { width: '250px' }, className: 'p-2', children: Object.values(levels).some((count) => count > 0) ? (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [jsxRuntimeExports.jsx("p", { children: jsxRuntimeExports.jsx("strong", { children: "\u041A\u043E\u043B-\u0432\u043E \u0447\u0435\u043A\u043F\u043E\u0438\u043D\u0442\u043E\u0432 \u043F\u043E\u00A0\u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u0438:" }) }), jsxRuntimeExports.jsx("ul", { className: 'list-group', children: Object.entries(levels).map(([level, count]) => (jsxRuntimeExports.jsxs("li", { className: 'list-group-item', style: { color: colors[level] }, children: [labels[level], ": ", count] }))) }), jsxRuntimeExports.jsx(ReactMinimalPieChart, { data: Object.entries(levels)
+                        .filter(([level, count]) => count > 0)
+                        .map(([level, count]) => ({
+                        title: labels[level],
+                        value: count,
+                        color: colors[level],
+                    })), lineWidth: 45, label: ({ dataEntry }) => dataEntry.title, labelStyle: {
+                        fontSize: '5px',
+                        fontFamily: 'sans-serif',
+                    }, radius: 25, labelPosition: 110 })] })) : (jsxRuntimeExports.jsx("p", { children: "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0447\u0435\u043A\u043F\u043E\u0438\u043D\u0442\u044B \u0434\u043B\u044F\u00A0\u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u0432" })) }));
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

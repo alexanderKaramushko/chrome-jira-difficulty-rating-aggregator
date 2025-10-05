@@ -11,48 +11,56 @@ function toHex(color: string) {
 
 const RED = '#ff0000';
 const ORANGE = '#ff9900';
-const GREEN = '#008000';
+const GREEN = '#339966';
 
 const checklist = document.querySelector<HTMLDivElement>('#main ul.inline-task-list');
 const map = new Map();
 
-Array.from(checklist.querySelectorAll('li > span')).forEach((item) => {
-  const color = window.getComputedStyle(item).color;
-  const hexColor = toHex(color);
+function getCheckedItems() {
+  return Array.from(document.querySelectorAll<HTMLLIElement>('#main ul.inline-task-list > li')).filter((item) =>
+    item.classList.contains('checked')
+  );
+}
 
-  if (!map.get(item)) {
-    map.set(item, hexColor);
-  }
-})
+function saveColors() {
+  Array.from(checklist.querySelectorAll('#main ul.inline-task-list > li > span')).forEach((item) => {
+    const color = window.getComputedStyle(item).color;
+    const hexColor = toHex(color);
+
+    if (!map.get(item)) {
+      map.set(item, hexColor);
+    }
+  });
+}
 
 function getLevels() {
-  return Array.from(checklist.querySelectorAll('li > span'))
-    .filter((item) => item.closest('li').classList.contains('checked'))
-    .reduce((levels, item) => {
-      const color = window.getComputedStyle(item).color;
-      const hexColor = toHex(color);
-    
+  return getCheckedItems().reduce(
+    (levels, item) => {
+      const span = Array.from(item.children).find(({ tagName }) => tagName === 'SPAN');
+
       // Возможно нужна проверка на все 16-ричные вхождения цвета
-      if (hexColor === RED || map.get(item) === RED) {
+      if (map.get(span) === RED) {
         levels.hard += 1;
       }
-    
+
       // Возможно нужна проверка на все 16-ричные вхождения цвета
-      if (hexColor === ORANGE || map.get(item) === ORANGE) {
+      if (map.get(span) === ORANGE) {
         levels.medium += 1;
       }
-    
+
       // Возможно нужна проверка на все 16-ричные вхождения цвета
-      if (hexColor === GREEN || map.get(item) === GREEN) {
+      if (map.get(span) === GREEN) {
         levels.light += 1;
       }
-    
+
       return levels;
-    }, {
+    },
+    {
       hard: 0,
       medium: 0,
       light: 0,
-    })
+    }
+  );
 }
 
 checklist.onclick = (event) => {
@@ -66,16 +74,11 @@ checklist.onclick = (event) => {
           type: 'aggregated',
           payload: {
             levels: getLevels(),
-          }
+          },
         });
       }, 0);
     }
   }
-}
+};
 
-chrome.runtime.sendMessage({
-  type: 'aggregated',
-  payload: {
-    levels: getLevels(),
-  }
-});
+saveColors();
